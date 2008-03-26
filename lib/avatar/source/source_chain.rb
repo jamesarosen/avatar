@@ -37,10 +37,11 @@ module Avatar # :nodoc:
       end
       
       # Iterate through the chain and return the first URL returned.
-      # Any error raised will propagate.
+      # Any error raised will propagate.  Duplicates +options+ before
+      # passing so each Source receives the same arguments.
       def avatar_url_for(person, options = {})
         @chain.each do |source|
-          result = source.avatar_url_for(person, options)
+          result = source.avatar_url_for(person, options.dup)
           return result unless result.nil?
         end
         return nil

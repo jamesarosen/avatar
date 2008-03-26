@@ -1,11 +1,8 @@
 #ignore all .diff files
 /*.diff
 
-#ignore coverage reports
+#ignore generated files:
 /coverage
-
-#ignore logs
+/doc
 /log/*.log
-
-#ignore packaged local gem:
 /pkg

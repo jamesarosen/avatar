@@ -47,12 +47,12 @@ class TestGravatarSource < Test::Unit::TestCase
   
   def test_size
     assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?size=70", @source.avatar_url_for(@gary, :size => 70)
-    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?s=62", @source.avatar_url_for(@gary, :s => 62)
+    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?size=62", @source.avatar_url_for(@gary, :s => 62)
   end
   
   def test_rating
     assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?rating=R", @source.avatar_url_for(@gary, :rating => 'R')
-    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?r=PG", @source.avatar_url_for(@gary, :r => 'PG')
+    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?rating=PG", @source.avatar_url_for(@gary, :r => 'PG')
   end
   
 end

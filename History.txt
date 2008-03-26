@@ -1,4 +1,24 @@
+== 0.0.2 2008-03-24
+* 1 major fix:
+  * SourceChain duplicates options before passing to elements
+
+* 1 minor fix:
+  * forced GravatarSource to coerce rating and size to proper values
+
+* 1 minor enhancement:
+  * broke out URL generation in GravatarSource to allow overriding
+
 == 0.0.1 2008-03-24
 
 * 1 major enhancement:
   * Initial release
+  * AbstractSource
+  * FileColumnSource
+  * GravatarSource
+  * NilSource
+  * SourceChain
+  * StaticUrlSource
+  * StringSubstitutionSource
+  * AbstractViewSupport
+  * ActionViewSupport
+  * tests

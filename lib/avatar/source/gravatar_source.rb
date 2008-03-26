@@ -3,6 +3,15 @@ require 'avatar/source/static_url_source'
 require 'avatar/source/nil_source'
 require 'digest/md5'
 
+unless Object.method_defined?(:returning)
+  Object.class_eval do
+    def returning(value)
+      yield(value)
+      value
+    end
+  end
+end
+
 module Avatar # :nodoc:
   module Source # :nodoc:
     # NOTE: since Gravatar always returns a URL (never a 404), instances of this
@@ -23,7 +32,14 @@ module Avatar # :nodoc:
         'http://www.gravatar.com/avatar/'
       end
       
-      # :nodoc:
+      # ['G', 'PG', 'R', 'X']
+      def self.allowed_ratings
+        ['G', 'PG', 'R', 'X']
+      end
+      
+      # Arguments:
+      # * +default_source+: a Source to generate defaults to be passed to Gravatar; optional; default: nil (a NilSource).
+      # * +default_field+: the field within each +person+ passed to <code>avatar_url_for</code> in which to look for an email address
       def initialize(default_source = nil, default_field = :email)
         self.default_source = default_source #not @default_source = ... b/c want to use the setter function below
         @default_field = default_field
@@ -38,17 +54,30 @@ module Avatar # :nodoc:
       # * <code>:rating or :r</code> - the maximum rating; one of ['G', 'PG', 'R', 'X']
       def avatar_url_for(person, options = {})
         return nil if person.nil?
-        options[:default] ||= default_avatar_url_for(person, options)
-        field = options[:field] || default_field
+        field = options.delete(:field) || default_field
         raise ArgumentError.new('No field specified; either specify a default field or pass in a value for :field (probably :email)') unless field
-        url = self.class.base_url
-        url << Digest::MD5::hexdigest(person.send(field)).strip
-        [:size, :s, :rating, :r, :default].each do |x|
-          next unless options[x]
-          url << (url.include?('?') ? '&' : '?')
-          url << "#{x}=#{options[x]}"
+        
+        options = parse_options(person, options)
+        returning(self.class.base_url) do |url|
+          url << Digest::MD5::hexdigest(person.send(field)).strip
+          options.each do |k, v|
+            next if v.nil?
+            url << (url.include?('?') ? '&' : '?')
+            url << "#{k}=#{v}"
+          end
         end
-        url
+      end
+      
+      def parse_options(person, options)
+        returning({}) do |result|
+          result[:default] = options[:default] || default_avatar_url_for(person, options)
+
+          size = options[:size] || options[:s]
+          result[:size] = size if size.to_s =~ /^\d*/
+
+          rating = options[:rating] || options[:r]
+          result[:rating] = rating.upcase if rating and self.class.allowed_ratings.include?(rating.to_s)
+        end
       end
       
       # Set the default source for all people.
