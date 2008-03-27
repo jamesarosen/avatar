@@ -1,3 +1,12 @@
+== 0.0.3 2008-03-27
+* 2 minor fixes:
+  * GravatarSource now takes parameter :gravatar_field instead of :field for compatibility with other sources
+  * FileColumnSource now takes parameter :file_column_field instead of :field for compatibility with other sources
+
+* 2 minor enhancements:
+  * broke out options parsing in FileColumnSource to allow overriding
+  * added :gravatar_xxx versions to allowed options for GravatarSource
+
 == 0.0.2 2008-03-24
 * 1 major fix:
   * SourceChain duplicates options before passing to elements

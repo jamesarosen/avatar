@@ -1,3 +1,12 @@
+unless Object.method_defined?(:returning)
+  Object.class_eval do
+    def returning(value)
+      yield(value)
+      value
+    end
+  end
+end
+
 module Avatar # :nodoc:
   module Source # :nodoc:
     # To be included by classes that generate avatar URLs from profiles.

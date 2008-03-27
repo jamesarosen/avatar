@@ -15,8 +15,8 @@ module Avatar # :nodoc:
       # Create a new source with static url +url+, which can contain any number
       # of variables to be subsituted through +options+.  Strings should
       # be of the form '...#{variable_a}...#{variable_b}...'.  <em>note the
-      # single quotes</em>; double quotes will cause the variables to be
-      # substituted at Source-creation (when #new is called); this is almost
+      # single quotes</em>.  Double quotes will cause the variables to be
+      # substituted at Source-creation (when #new is called), which is almost
       # certainly <strong>not</strong> what you want.
       def initialize(url)
         raise ArgumentError.new("URL cannot be nil") if url.nil?
