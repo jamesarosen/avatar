@@ -45,7 +45,7 @@ support for avatars</h2>
 	<h2>Installing</h2>
 
 
-	<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">avatar</span></pre></p>
+	<p><pre class='syntax'>sudo gem install avatar</pre></p>
 
 
 	<h2>The basics
@@ -55,17 +55,17 @@ Set up Avatar::source (by default, a Gravatar with a StaticUrl as the default)</
 	<h2>Demonstration of usage</h2>
 
 
-app/helpers/people_helper.rb:
-<pre><code class='ruby'>
-class PeopleHelper
-    include Avatar::View::ActionViewSupport
-end
-</code></pre>
+	<p>app/helpers/people_helper.rb:
+<pre class='syntax'><span class="keyword">class </span><span class="class">PeopleHelper</span>
+	<span class="ident">include</span> <span class="constant">Avatar</span><span class="punct">::</span><span class="constant">View</span><span class="punct">::</span><span class="constant">ActionViewSupport</span>
+<span class="keyword">end</span>
+</pre></p>
 
-app/views/people/show.html.erb:
-<pre><code class='ruby erb'>
-&lt;%= avatar_tag(@current_user, :size =&gt; 40) %&gt;
-</code></pre>
+
+	<p>app/views/people/show.html.erb:
+<pre class='syntax'><span class="punct">&lt;%=</span><span class="string"> avatar_tag(@current_user, :size </span><span class="punct">=&gt;</span> <span class="number">40</span><span class="punct">)</span> <span class="punct">%&gt;</span><span class="string"><span class="normal">
+</span></span></pre></p>
+
 
 	<h2>Forum</h2>
 

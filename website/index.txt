@@ -17,14 +17,14 @@ Set up Avatar::source (by default, a Gravatar with a StaticUrl as the default)
 h2. Demonstration of usage
 
 app/helpers/people_helper.rb:
-<pre syntax='ruby'><code class='ruby'>class PeopleHelper
+<pre syntax='ruby'>class PeopleHelper
 	include Avatar::View::ActionViewSupport
 end
-</code></pre>
+</pre>
 
 app/views/people/show.html.erb:
-<pre syntax='ruby'><code class='ruby erb'><%= avatar_tag(@current_user, :size => 40) %>
-</code></pre>
+<pre syntax='ruby'><%= avatar_tag(@current_user, :size => 40) %>
+</pre>
 
 
 h2. Forum
