@@ -1,3 +1,4 @@
+require 'avatar/string_substitution'
 require 'avatar/source/abstract_source'
 
 module Avatar # :nodoc:
@@ -8,19 +9,21 @@ module Avatar # :nodoc:
     #   url = source.avatar_url_for(@person, :gender => :female, :size => :large)
     #     # => 'female_icon_large.png'
     class StringSubstitutionSource
+      include StringSubstitution
       include AbstractSource
       
       attr_accessor :url
+      attr_accessor :default_options
       
       # Create a new source with static url +url+, which can contain any number
-      # of variables to be subsituted through +options+.  Strings should
-      # be of the form '...#{variable_a}...#{variable_b}...'.  <em>note the
-      # single quotes</em>.  Double quotes will cause the variables to be
-      # substituted at Source-creation (when #new is called), which is almost
-      # certainly <strong>not</strong> what you want.
-      def initialize(url)
+      # of variables to be subsituted through +options+.  See link:classes/Avatar/StringSubstitution.html
+      #
+      # Optionally, can pass in +default _options+ to be applied in replacement, overwritable
+      # by the +options+ passed to :avatar_url_for.
+      def initialize(url, default_options = {})
         raise ArgumentError.new("URL cannot be nil") if url.nil?
-        @url = url.to_s
+        self.url = url.to_s
+        self.default_options = default_options || {}
       end
       
       # Returns nil if +person+ is nil or if variables in <code>url</code>
@@ -29,18 +32,12 @@ module Avatar # :nodoc:
       # with the value of the corresponding key within +options+.
       def avatar_url_for(person, options = {})
         return nil if person.nil?
-        result = apply_replacement(options)
-        result =~ /#\{.*\}/ ? nil : result
+        result = apply_substitution(self.url, self.default_options.merge(options))
+        substitution_needed?(result) ? nil : result
       end
       
-      private
-      
-      def apply_replacement(options)
-        result = self.url
-        options.each do |k,v|
-          result = result.gsub(Regexp.new('#\{' + "#{k}" + '\}'), "#{v}")
-        end
-        result
+      def default_options=(opts)
+        @default_options = opts || {}
       end
       
     end

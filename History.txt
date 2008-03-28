@@ -1,3 +1,16 @@
+== 0.0.4 2008-03-28
+* 2 major fixes:
+  * GravatarSource downcases email to comply with Gravatar standards
+  * GravatarSource raises exception if passed a path instead of a URL for default
+
+* 1 major enhancement:
+  * added RailsAssetSource
+
+* 3 minor enhancements:
+  * added default_options to StringSubstitutionSource
+  * broke StringSubstitution out into a separate module
+  * added :any to GravatarSource::allowed_ratings
+
 == 0.0.3 2008-03-27
 * 2 minor fixes:
   * GravatarSource now takes parameter :gravatar_field instead of :field for compatibility with other sources

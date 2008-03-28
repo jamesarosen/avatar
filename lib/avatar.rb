@@ -1,8 +1,6 @@
 $:.unshift File.expand_path(File.dirname(__FILE__))
 require 'avatar/source/abstract_source'
 require 'avatar/source/gravatar_source'
-require 'avatar/source/static_url_source'
-require 'avatar/source/nil_source'
 
 # Helpers for displaying avatars.
 # Usage in Rails:
@@ -12,12 +10,10 @@ require 'avatar/source/nil_source'
 #   # in app/views/profiles/show.html.erb:
 #   <%= avatar_for @person =>
 #
-# By default, Avatar::source is a GravatarSource with
-# StaticUrlSource as its default.
-# The latter has the url '/images/default_avatar.png'.
+# By default, Avatar::source is a GravatarSource
 module Avatar
   
-  @@source = Avatar::Source::NilSource.new
+  @@source = Avatar::Source::GravatarSource.new
   @@default_avatar_options = {}
   
   def self.source
@@ -39,6 +35,3 @@ module Avatar
   end
   
 end
-
-url_source = Avatar::Source::StaticUrlSource.new('/images/default_avatar.png')
-Avatar.source = Avatar::Source::GravatarSource.new(url_source)
