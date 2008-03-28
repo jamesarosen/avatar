@@ -11,7 +11,8 @@ h2. Installing
 <pre syntax="bsd">sudo gem install avatar</pre>
 
 h2. The basics
-Set up Avatar::source (by default, a Gravatar with a StaticUrl as the default)
+Set up Avatar::source (by default, a Gravatar)
+Use Avatar::source.avatar_url_for(person, options) or a view helper
 
 
 h2. Demonstration of usage
