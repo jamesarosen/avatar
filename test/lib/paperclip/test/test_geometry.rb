@@ -4,7 +4,7 @@ require 'shoulda'
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'paperclip', 'geometry.rb')
 
-class PaperclipTest < Test::Unit::TestCase
+class GeometryTest < Test::Unit::TestCase
   context "Paperclip::Geometry" do
     should "correctly report its given dimensions" do
       assert @geo = Paperclip::Geometry.new(1024, 768)
@@ -42,8 +42,31 @@ class PaperclipTest < Test::Unit::TestCase
       assert_equal 800, @geo.height
     end
 
+    should "ensure the modifier is nil if only one dimension present" do
+      assert @geo = Paperclip::Geometry.parse("123x")
+      assert_nil @geo.modifier
+    end
+
+    should "ensure the modifier is nil if not present" do
+      assert @geo = Paperclip::Geometry.parse("123x456")
+      assert_nil @geo.modifier
+    end
+
+    ['>', '<', '#', '@', '%', '^', '!'].each do |mod|
+      should "ensure the modifier #{mod} is preserved" do
+        assert @geo = Paperclip::Geometry.parse("123x456#{mod}")
+        assert_equal mod, @geo.modifier
+      end
+    end
+
+    should "make sure the modifier gets passed during transformation_to" do
+      assert @src = Paperclip::Geometry.parse("123x456")
+      assert @dst = Paperclip::Geometry.parse("123x456>")
+      assert_equal "123x456>", @src.transformation_to(@dst).to_s
+    end
+
     should "be generated from a file" do
-      file = Dir.glob("/Users/jyurek/Pictures/*.jpg").first
+      file = File.join(File.dirname(__FILE__), "fixtures", "5k.png")
       file = File.new(file)
       assert_nothing_raised{ @geo = Paperclip::Geometry.from_file(file) }
       assert @geo.height > 0
@@ -51,7 +74,7 @@ class PaperclipTest < Test::Unit::TestCase
     end
 
     should "be generated from a file path" do
-      file = Dir.glob("/Users/jyurek/Pictures/*.jpg").first
+      file = File.join(File.dirname(__FILE__), "fixtures", "5k.png")
       assert_nothing_raised{ @geo = Paperclip::Geometry.from_file(file) }
       assert @geo.height > 0
       assert @geo.width > 0

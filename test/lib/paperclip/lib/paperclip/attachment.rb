@@ -4,15 +4,6 @@ module Paperclip
   class Attachment
     
     attr_reader :name, :instance, :file, :styles, :default_style
-    
-    DEFAULTS = {
-      :url => "/:attachment/:id/:style/:basename.:extension",
-      :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
-      :styles => {},
-      :default_url => "/:attachment/:style/missing.png",
-      :validations => [],
-      :default_style => :original
-    }
 
     # Creates an Attachment object. +name+ is the name of the attachment, +instance+ is the
     # ActiveRecord object instance it's attached to, and +options+ is the same as the hash
@@ -20,14 +11,14 @@ module Paperclip
     def initialize name, instance, options
       @name              = name
       @instance          = instance
-      @url               = options[:url]           || DEFAULTS[:url]
-                           
-      @path              = options[:path]          || DEFAULTS[:path]
-                           
-      @styles            = options[:styles]        || DEFAULTS[:styles]
-      @default_url       = options[:default_url]   || DEFAULTS[:default_url]
-      @validations       = options[:validations]   || DEFAULTS[:validations]
-      @default_style     = options[:default_style] || DEFAULTS[:default_style]
+      @url               = options[:url]           || 
+                           "/:attachment/:id/:style/:basename.:extension"
+      @path              = options[:path]          || 
+                           ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+      @styles            = options[:styles]        || {}
+      @default_url       = options[:default_url]   || "/:attachment/:style/missing.png"
+      @validations       = options[:validations]   || []
+      @default_style     = options[:default_style] || :original
       @queued_for_delete = []
       @processed_files   = {}
       @errors            = []
@@ -35,7 +26,7 @@ module Paperclip
       @dirty             = false
 
       normalize_style_definition
-      
+
       @file              = File.new(path) if original_filename && File.exists?(path)
     end
 
@@ -46,7 +37,7 @@ module Paperclip
       queue_existing_for_delete
       @errors            = []
       @validation_errors = nil 
-      
+
       return nil unless valid_file?(uploaded_file)
 
       @file                               = uploaded_file.to_tempfile
@@ -107,6 +98,7 @@ module Paperclip
     # style. Useful for streaming with +send_file+.
     def to_io style = nil
       begin
+        style ||= @default_style
         @processed_files[style] || File.new(path(style))
       rescue Errno::ENOENT
         nil
@@ -126,18 +118,21 @@ module Paperclip
     # necessary.
     def self.interpolations
       @interpolations ||= {
-        :rails_root => lambda{|attachment,style| RAILS_ROOT },
-        :class      => lambda{|attachment,style| attachment.instance.class.to_s.pluralize },
-        :basename   => lambda do |attachment,style|
-          attachment.original_filename.gsub(/\.(.*?)$/, "")
-        end,
-        :extension  => lambda do |attachment,style| 
-          ((style = attachment.styles[style]) && style.last) ||
-          File.extname(attachment.original_filename).gsub(/^\.+/, "")
-        end,
-        :id         => lambda{|attachment,style| attachment.instance.id },
-        :attachment => lambda{|attachment,style| attachment.name.to_s.pluralize },
-        :style      => lambda{|attachment,style| style || attachment.default_style },
+        :rails_root   => lambda{|attachment,style| RAILS_ROOT },
+        :class        => lambda{|attachment,style| attachment.instance.class.to_s.downcase.pluralize },
+        :basename     => lambda do |attachment,style|
+                           attachment.original_filename.gsub(/\.(.*?)$/, "")
+                         end,
+        :extension    => lambda do |attachment,style| 
+                           ((style = attachment.styles[style]) && style.last) ||
+                           File.extname(attachment.original_filename).gsub(/^\.+/, "")
+                         end,
+        :id           => lambda{|attachment,style| attachment.instance.id },
+        :partition_id => lambda do |attachment, style|
+                           ("%09d" % attachment.instance.id).scan(/\d{3}/).join("/")
+                         end,
+        :attachment   => lambda{|attachment,style| attachment.name.to_s.downcase.pluralize },
+        :style        => lambda{|attachment,style| style || attachment.default_style },
       }
     end
 
@@ -217,7 +212,7 @@ module Paperclip
         FileUtils.mkdir_p( File.dirname(path(style)) )
         @processed_files[style] = file.stream_to(path(style)) unless file.path == path(style)
       end
-      @file = @processed_files[:original]
+      @file = @processed_files[@default_style]
     end
 
     def flush_deletes #:nodoc:
