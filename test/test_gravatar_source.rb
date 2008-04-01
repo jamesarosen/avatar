@@ -71,4 +71,9 @@ class TestGravatarSource < Test::Unit::TestCase
     assert_equal "http://www.gravatar.com/avatar/#{@email_hash}", @source.avatar_url_for(@gary, :r => 'EVIL')
   end
   
+  def test_default_always_at_end
+    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?rating=any&default=http://gonzo.com",  @source.avatar_url_for(@gary, :gravatar_rating => :any, :gravatar_default_url => 'http://gonzo.com')
+    assert_equal "http://www.gravatar.com/avatar/#{@email_hash}?size=110&default=http://gonzo.com",  @source.avatar_url_for(@gary, :gravatar_size => 110, :gravatar_default_url => 'http://gonzo.com')
+  end
+  
 end

@@ -56,7 +56,9 @@ module Avatar # :nodoc:
         
         returning(self.class.base_url) do |url|
           url << Digest::MD5::hexdigest(email).strip
-          options.each do |k, v|
+          # default must be last or the other options will be parameters to that URL, not the Gravatar one
+          [:size, :rating, :default].each do |k|
+            v = options[k]
             next if v.nil?
             url << (url.include?('?') ? '&' : '?')
             url << "#{k}=#{v}"
@@ -65,10 +67,10 @@ module Avatar # :nodoc:
       end
       
       # Returns a Hash containing
-      # * :field - passed through; defaults to <code>self.default_field</code>
-      # * :default - passed through; defaults to <code>self.default_avatar_url_for(+person+, +options+)</code>
-      # * :size - :gravatar_size or :size or :s passed through <em>only if a number</em>
-      # * :rating - :gravatar_rating or :rating or :r passed through <em>only if one of <code>self.class.allowed_ratings</code></em>
+      # * :field - value of :gravatar_field; defaults to <code>self.default_field</code>
+      # * :default - value of :gravatar_default_url; defaults to <code>self.default_avatar_url_for(+person+, +options+)</code>
+      # * :size - value of :gravatar_size or :size or :s passed through <em>only if a number</em>
+      # * :rating - value of :gravatar_rating or :rating or :r passed through <em>only if one of <code>self.class.allowed_ratings</code></em>
       def parse_options(person, options)
         returning({}) do |result|
           result[:gravatar_field] = options[:gravatar_field] || default_field
