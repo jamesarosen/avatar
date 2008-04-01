@@ -1,3 +1,13 @@
+== 0.0.5 2008-04-01
+* 4 major enhancements:
+  * added PaperclipSource for use with the Paperclip plugin
+  * added AbstractSourceWrapper
+  * changed StringSubstitutionSource to a SourceWrapper
+  * changed RailsAssetSource to a SourceWrapper
+
+* 1 minor change:
+  * moved StringSubstitution out of separate module and into new StringSubstitutionSourceWrapper
+
 == 0.0.4 2008-03-28
 * 2 major fixes:
   * GravatarSource downcases email to comply with Gravatar standards

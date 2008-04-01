@@ -8,7 +8,7 @@ require 'avatar/source/gravatar_source'
 #   include Avatar::ActionView::Support
 #
 #   # in app/views/profiles/show.html.erb:
-#   <%= avatar_for @person =>
+#   <%= avatar_for @person => current_person %>
 #
 # By default, Avatar::source is a GravatarSource
 module Avatar
