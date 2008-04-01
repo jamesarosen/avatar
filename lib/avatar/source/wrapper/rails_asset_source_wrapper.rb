@@ -26,7 +26,7 @@ module Avatar # :nodoc:
         def wrap(url, person, options = {})
           # url will never be nil b/c of guarantee in AbstractSourceWrapper
           result = url_helper.image_path(url)
-          raise "could not generate protocol and host for #{url}" unless result =~ /^http[s]?\:\/\//
+          raise "could not generate protocol and host for #{url}.  Have you set ActionController::Base.asset_host?" unless result =~ /^http[s]?\:\/\//
           result
         end
       
