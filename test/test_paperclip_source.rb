@@ -38,7 +38,7 @@ class TestPaperclipSource < Test::Unit::TestCase
   end
   
   def test_avatar_url_for_person_with_avatar
-    assert_equal "/images/PaperclipUsers/#{@user_with_avatar.id}/avatars/medium/user_suit.png", @source.avatar_url_for(@user_with_avatar)
+    assert_equal "/images/paperclipusers/#{@user_with_avatar.id}/avatars/medium/user_suit.png", @source.avatar_url_for(@user_with_avatar)
   end
 
   def test_avatar_url_is_nil_for_invalid_size
@@ -46,7 +46,7 @@ class TestPaperclipSource < Test::Unit::TestCase
   end
   
   def test_avatar_url_for_person_with_icon_and_custom_file_column_field
-    assert_equal "/images/PaperclipUsers/#{@user_with_icon.id}/icons/small/user_suit.png", @source.avatar_url_for(@user_with_icon, :paperclip_field => :icon)
+    assert_equal "/images/paperclipusers/#{@user_with_icon.id}/icons/small/user_suit.png", @source.avatar_url_for(@user_with_icon, :paperclip_field => :icon)
   end
   
 end
