@@ -27,7 +27,6 @@ lib/avatar/view/action_view_support.rb
 script/destroy
 script/generate
 script/txt2html
-setup.rb
 tasks/deployment.rake
 tasks/environment.rake
 tasks/testing.rake
