@@ -1,3 +1,10 @@
+== 0.0.6 2008-06-09
+* 1 major fix:
+  * removed all task files (./task/*.rake) for Rails plugin compatability
+
+* 1 minor enhancement
+  * removed redundant Hoe dependencies, since the gem is only hosted on GitHub
+
 == 0.0.5 2008-04-01
 * 4 major enhancements:
   * added PaperclipSource for use with the Paperclip plugin
