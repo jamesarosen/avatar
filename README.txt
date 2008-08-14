@@ -18,7 +18,12 @@ Avatar currently supports the following views:
 * ActionView (Rails), through avatar_tag
 * AbstractView (any framework), through avatar_url_for
 
-== SYNOPSIS:
+== BUG REPORTING:
+
+Submit bugs to https://gcnovus.fogbugz.com/default.asp?pg=pgPublicEdit under the "Avatar Gem" project,
+or discuss at http://groups.google.com/group/ruby-avatar/.
+
+== BASICS:
 
 in RAILS_ROOT/app/helpers/people_helper.rb
 require 'avatar/view/action_view_support'
