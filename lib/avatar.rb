@@ -1,6 +1,7 @@
 $:.unshift File.expand_path(File.dirname(__FILE__))
 require 'avatar/source/abstract_source'
 require 'avatar/source/gravatar_source'
+require 'avatar/source/pavatar_source'
 
 # Helpers for displaying avatars.
 # Usage in Rails:

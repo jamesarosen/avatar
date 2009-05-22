@@ -12,6 +12,7 @@ lib/avatar/source.rb
 lib/avatar/source/abstract_source.rb
 lib/avatar/source/file_column_source.rb
 lib/avatar/source/gravatar_source.rb
+lib/avatar/source/pavatar_source.rb
 lib/avatar/source/nil_source.rb
 lib/avatar/source/paperclip_source.rb
 lib/avatar/source/source_chain.rb
