@@ -32,7 +32,7 @@ module Avatar
   
   def self.default_avatar_options=(options)
     raise ArgumentError.new("#{options} is not a Hash") unless options.kind_of?(Hash)
-    @@options = options
+    @@default_avatar_options = options
   end
   
 end
