@@ -1,4 +1,5 @@
 require 'avatar/source/wrapper/abstract_source_wrapper'
+require 'action_view/helpers/tag_helper' 
 require 'action_view/helpers/asset_tag_helper'
 
 module Avatar # :nodoc:
@@ -34,3 +35,4 @@ module Avatar # :nodoc:
     end
   end
 end
+

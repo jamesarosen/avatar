@@ -1,7 +1,8 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
+require 'action_controller/base'
+require 'action_view/base'
 require 'avatar/source/wrapper/rails_asset_source_wrapper'
 require 'avatar/source/static_url_source'
-require 'action_controller/base'
 
 class TestRailsAssetSourceWrapper < Test::Unit::TestCase
   

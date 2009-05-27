@@ -19,9 +19,10 @@ require File.join(File.dirname(__FILE__), ['lib', 'schema'])
 require File.join(File.dirname(__FILE__), ['..', 'lib', 'avatar'])
 
 class Person
-  attr_accessor :email, :name
-  def initialize(email, name = nil)
+  attr_accessor :email, :name, :blog_url
+  def initialize(email, name = nil, blog_url = nil)
     @email = email
     @name = name || email
+    @blog_url = blog_url
   end
 end
