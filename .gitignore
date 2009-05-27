@@ -7,3 +7,5 @@
 /log/*.log
 /pkg
 *.swp
+
+tags
