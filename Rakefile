@@ -61,7 +61,7 @@ namespace :gem do
     s.authors = ['James Rosen']
     s.email = 'james.a.rosen@gmail.com'
 
-    s.files = [ 'History.txt', 'License.txt', 'README.txt', 'init.rb', 'rails/init.rb' ] + Dir.glob( "lib/**/*" ).delete_if { |item| item.include?('.git') }
+    s.files = [ 'History.txt', 'License.txt', 'README.rdoc', 'init.rb', 'rails/init.rb' ] + Dir.glob( "lib/**/*" ).delete_if { |item| item.include?('.git') }
 
     s.has_rdoc = true
     s.homepage = 'http://github.com/gcnovus/avatar'
