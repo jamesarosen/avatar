@@ -1,11 +1,14 @@
 require 'rubygems'
-gem 'rack', '0.9.1'
 require 'sinatra'
 
 get '/' do
-  response['X-Pavatar'] = 'http://blog.example.com/pavatar.png'
+  response['X-Pavatar'] = 'http://localhost:4567/pavatar.png'
 end
 
 get '/pavatar.png' do
-  attachement('pavatar.png')
+  'yep' # we just need 200
+end
+
+get '/hsegment/pavatar.png' do
+  'yep' # we just need 200
 end

@@ -16,6 +16,7 @@ module Avatar # :nodoc:
       #
       def avatar_url_for(person, options = {})
         return nil if person.nil?
+        options = options.merge! ::Avatar.default_avatar_options
         field = options.delete(:pavatar_field) || :blog_url
         raise ArgumentError.new('No field specified; either specify a default field or pass in a value for :pavatar_field (probably :blog_url)') unless field
 

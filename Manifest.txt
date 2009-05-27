@@ -4,7 +4,7 @@ History.txt
 init.rb
 License.txt
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 lib/avatar.rb
 lib/avatar/object_support.rb
