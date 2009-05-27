@@ -9,6 +9,7 @@ Avatar is a collection of Ruby utilities for displaying avatars.
 
 Avatar currently supports the following sources:
 * Gravatar (see http://www.gravatar.com)
+* Initial Pavatar support (see http://pavatar.com/spec/)
 * a constant URL (e.g. http://mysite.com/images/default_icon.png)
 * parameterized URLs (e.g. http://mysite.com/images/famfamfam/user_#{color}.png)
 * file_column (see http://www.kanthak.net/opensource/file_column/)
