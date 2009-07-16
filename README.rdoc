@@ -3,6 +3,7 @@
 * http://avatar.rubyforge.org
 
 == DESCRIPTION:
+
 Avatar is a collection of Ruby utilities for displaying avatars.
 
 == FEATURES/PROBLEMS:
@@ -26,13 +27,15 @@ or discuss at http://groups.google.com/group/ruby-avatar/.
 
 == BASICS:
 
-in RAILS_ROOT/app/helpers/people_helper.rb
+in RAILS_ROOT/app/helpers/people_helper.rb:
+
 require 'avatar/view/action_view_support'
 class PeopleHelper
 	include Avatar::View::ActionViewSupport
 end  
 
 in RAILS_ROOT/app/views/people/show.html.erb:
+
 <%= avatar_tag(@current_user, :size => 40) %>
 
 == REQUIREMENTS:
