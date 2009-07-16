@@ -7,6 +7,7 @@ require 'active_record'
 require 'active_support'
 require 'action_controller'
 require 'action_view'
+require 'mocha'
 
 #$: << File.expand_path(File.join(File.dirname(__FILE__), ['lib', 'file_column', 'lib']))
 #$: << File.expand_path(File.join(File.dirname(__FILE__), ['lib', 'paperclip', 'lib']))
